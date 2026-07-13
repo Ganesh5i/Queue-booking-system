@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Smart Queue System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>SmartQueue</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="booking.html">Book Queue</a></li>
+                <li><a href="queue.html">Live Queue</a></li>
+                <li><a href="admin.html" class="active">Admin</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Login Section -->
+    <section id="loginSection" class="login-section">
+        <div class="container">
+            <div class="login-card">
+                <h2>Admin Login</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input 
+                            type="text" 
+                            id="username" 
+                            name="username" 
+                            required 
+                            placeholder="Enter username"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            required 
+                            placeholder="Enter password"
+                        >
+                    </div>
+                    <div id="loginError" class="error-message"></div>
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                    <p class="login-hint">Demo credentials: admin / admin123</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admin Dashboard Section -->
+    <section id="dashboardSection" class="admin-dashboard" style="display: none;">
+        <div class="container">
+            <div class="dashboard-header">
+                <h2>Admin Dashboard</h2>
+                <button class="btn btn-secondary" onclick="logout()">Logout</button>
+            </div>
+
+            <!-- Dashboard Statistics -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-value" id="adminWaitingCount">0</div>
+                    <div class="stat-label">Waiting</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🔔</div>
+                    <div class="stat-value" id="adminServingCount">0</div>
+                    <div class="stat-label">Serving</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-value" id="adminCompletedCount">0</div>
+                    <div class="stat-label">Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">❌</div>
+                    <div class="stat-value" id="adminCancelledCount">0</div>
+                    <div class="stat-label">Cancelled</div>
+                </div>
+            </div>
+
+            <!-- Current Queue Control -->
+            <div class="queue-control-card">
+                <div class="queue-card-header">
+                    <h3>Current Queue Control</h3>
+                    <div class="refresh-indicator">
+                        <span class="pulse"></span>
+                        <span>Auto-refreshing</span>
+                    </div>
+                </div>
+                <div class="current-serving-display">
+                    <div class="token-display" id="adminCurrentToken">--</div>
+                    <div class="token-info" id="adminCurrentTokenInfo">No token currently being served</div>
+                </div>
+                <div class="control-buttons">
+                    <button class="btn btn-primary" onclick="callNext()">Call Next</button>
+                    <button class="btn btn-success" onclick="completeCurrent()">Complete</button>
+                </div>
+            </div>
+
+            <!-- Search Bookings -->
+            <div class="search-card">
+                <h3>Search Bookings</h3>
+                <div class="search-form">
+                    <input 
+                        type="text" 
+                        id="adminSearch" 
+                        placeholder="Search by name, phone, or token..."
+                    >
+                    <button class="btn btn-primary" onclick="searchBookings()">Search</button>
+                    <button class="btn btn-secondary" onclick="loadAllBookings()">Show All</button>
+                </div>
+            </div>
+
+            <!-- Bookings Table -->
+            <div class="bookings-table-card">
+                <div class="queue-card-header">
+                    <h3>Today's Bookings</h3>
+                    <select id="statusFilter" onchange="filterBookings()">
+                        <option value="all">All Status</option>
+                        <option value="Waiting">Waiting</option>
+                        <option value="Serving">Serving</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                </div>
+                <div class="table-responsive">
+                    <table id="bookingsTable">
+                        <thead>
+                            <tr>
+                                <th>Token</th>
+                                <th>Customer Name</th>
+                                <th>Phone</th>
+                                <th>Service</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookingsTableBody">
+                            <tr>
+                                <td colspan="7" class="no-data">Loading bookings...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Smart Queue Booking System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="admin.js"></script>
+</body>
+</html>

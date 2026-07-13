@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Queue - Smart Queue System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>SmartQueue</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="booking.html">Book Queue</a></li>
+                <li><a href="queue.html" class="active">Live Queue</a></li>
+                <li><a href="admin.html">Admin</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Queue Section -->
+    <section class="queue-section">
+        <div class="container">
+            <h2 class="section-title">Live Queue Status</h2>
+            
+            <!-- Current Serving Card -->
+            <div class="queue-card current-serving">
+                <div class="queue-card-header">
+                    <h3>Currently Serving</h3>
+                    <div class="refresh-indicator">
+                        <span class="pulse"></span>
+                        <span>Live</span>
+                    </div>
+                </div>
+                <div class="current-token">
+                    <div class="token-display" id="currentToken">--</div>
+                    <div class="token-info" id="currentTokenInfo">No token currently being served</div>
+                </div>
+            </div>
+
+            <!-- Queue Statistics -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-value" id="waitingCount">0</div>
+                    <div class="stat-label">Waiting Customers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⏱️</div>
+                    <div class="stat-value" id="estimatedWait">0 min</div>
+                    <div class="stat-label">Estimated Wait Time</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-value" id="totalBookings">0</div>
+                    <div class="stat-label">Total Bookings Today</div>
+                </div>
+            </div>
+
+            <!-- Next Tokens -->
+            <div class="queue-card next-tokens">
+                <div class="queue-card-header">
+                    <h3>Next in Queue</h3>
+                    <div class="last-updated">
+                        Last updated: <span id="lastUpdated">--:--:--</span>
+                    </div>
+                </div>
+                <div class="tokens-list" id="nextTokensList">
+                    <div class="no-data">Loading queue data...</div>
+                </div>
+            </div>
+
+            <!-- Token Search -->
+            <div class="token-search">
+                <h3>Check Your Token Status</h3>
+                <div class="search-form">
+                    <input 
+                        type="text" 
+                        id="tokenSearch" 
+                        placeholder="Enter your token number (e.g., A001)"
+                    >
+                    <button class="btn btn-primary" onclick="searchToken()">Search</button>
+                </div>
+                <div id="tokenSearchResult" class="search-result"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Smart Queue Booking System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="queue.js"></script>
+</body>
+</html>

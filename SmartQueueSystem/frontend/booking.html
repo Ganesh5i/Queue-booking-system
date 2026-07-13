@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Queue - Smart Queue System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>SmartQueue</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="booking.html" class="active">Book Queue</a></li>
+                <li><a href="queue.html">Live Queue</a></li>
+                <li><a href="admin.html">Admin</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Booking Section -->
+    <section class="booking-section">
+        <div class="container">
+            <h2 class="section-title">Book Your Queue Token</h2>
+            <div class="booking-container">
+                <div class="booking-form-card">
+                    <form id="bookingForm">
+                        <div class="form-group">
+                            <label for="customerName">Customer Name *</label>
+                            <input 
+                                type="text" 
+                                id="customerName" 
+                                name="customerName" 
+                                required 
+                                placeholder="Enter your full name"
+                            >
+                            <span class="error-message" id="nameError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input 
+                                type="tel" 
+                                id="phone" 
+                                name="phone" 
+                                required 
+                                placeholder="Enter your phone number"
+                                pattern="[0-9]{10}"
+                            >
+                            <span class="error-message" id="phoneError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="service">Service Selection *</label>
+                            <select id="service" name="service" required>
+                                <option value="">Select a service</option>
+                                <option value="General Consultation">General Consultation</option>
+                                <option value="Technical Support">Technical Support</option>
+                                <option value="Billing Inquiry">Billing Inquiry</option>
+                                <option value="Account Management">Account Management</option>
+                                <option value="Product Information">Product Information</option>
+                            </select>
+                            <span class="error-message" id="serviceError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bookingDate">Booking Date *</label>
+                            <input 
+                                type="date" 
+                                id="bookingDate" 
+                                name="bookingDate" 
+                                required
+                            >
+                            <span class="error-message" id="dateError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bookingTime">Preferred Time *</label>
+                            <select id="bookingTime" name="bookingTime" required>
+                                <option value="">Select preferred time</option>
+                                <option value="09:00">09:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="12:00">12:00 PM</option>
+                                <option value="13:00">01:00 PM</option>
+                                <option value="14:00">02:00 PM</option>
+                                <option value="15:00">03:00 PM</option>
+                                <option value="16:00">04:00 PM</option>
+                                <option value="17:00">05:00 PM</option>
+                            </select>
+                            <span class="error-message" id="timeError"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Book Queue</button>
+                    </form>
+                </div>
+
+                <!-- Success Modal -->
+                <div id="successModal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Booking Successful!</h2>
+                            <span class="close-modal">&times;</span>
+                        </div>
+                        <div class="modal-body">
+                            <div class="success-icon">✓</div>
+                            <p>Your queue token has been generated successfully.</p>
+                            <div class="token-details">
+                                <div class="token-item">
+                                    <span class="token-label">Token Number:</span>
+                                    <span class="token-value" id="tokenNumber">-</span>
+                                </div>
+                                <div class="token-item">
+                                    <span class="token-label">Estimated Wait Time:</span>
+                                    <span class="token-value" id="waitTime">-</span>
+                                </div>
+                            </div>
+                            <p class="token-note">Please save your token number for reference.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="queue.html" class="btn btn-secondary">View Live Queue</a>
+                            <button class="btn btn-primary" onclick="closeModal()">Book Another</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Smart Queue Booking System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="booking.js"></script>
+</body>
+</html>
