@@ -42,6 +42,10 @@ class Database:
     def execute_query(self, query, params=None):
         """Execute a SELECT query and return results"""
         try:
+            # Ensure connection is alive
+            if not self.connection or not self.connection.is_connected():
+                self.connect()
+            
             cursor = self.connection.cursor(dictionary=True)
             cursor.execute(query, params or ())
             result = cursor.fetchall()
@@ -49,11 +53,17 @@ class Database:
             return result
         except Error as e:
             print(f"Error executing query: {e}")
+            # Try to reconnect
+            self.connect()
             return None
     
     def execute_update(self, query, params=None):
         """Execute an INSERT, UPDATE, or DELETE query"""
         try:
+            # Ensure connection is alive
+            if not self.connection or not self.connection.is_connected():
+                self.connect()
+            
             cursor = self.connection.cursor()
             cursor.execute(query, params or ())
             self.connection.commit()
@@ -63,6 +73,8 @@ class Database:
         except Error as e:
             print(f"Error executing update: {e}")
             self.connection.rollback()
+            # Try to reconnect
+            self.connect()
             return None
     
     def get_today_bookings(self):
@@ -107,7 +119,7 @@ class Database:
         # Get the last token number for today
         query = """
             SELECT token_number FROM booking 
-            WHERE DATE(created_at) = CURDATE()
+            WHERE DATE(booking_date) = CURDATE()
             ORDER BY id DESC LIMIT 1
         """
         result = self.execute_query(query)
